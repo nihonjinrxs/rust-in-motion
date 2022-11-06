@@ -1,5 +1,7 @@
-pub mod syntax;
+pub mod syntax;     // section 1 code
+pub mod borrowing;  // section 2 code
 
 fn main() {
-    syntax::run();
+    // syntax::run();
+    borrowing::run();
 }
