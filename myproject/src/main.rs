@@ -1,6 +1,7 @@
 pub mod syntax;         // section 1 code
 pub mod borrowing;      // section 2 code
 pub mod error_handling; // section 3 code
+pub mod lifetimes;      // section 4 code
 
 // For error_handling/json_results
 #[macro_use]
@@ -18,5 +19,6 @@ extern crate failure_derive;
 fn main() {
     // syntax::run();
     // borrowing::run();
-    error_handling::run();
+    // error_handling::run();
+    lifetimes::run();
 }
