@@ -97,3 +97,48 @@ fn referencing_moved_value() {
 // }
 
 // If needed, check out rental and owning-ref crates that enable self-referential structs
+
+/*
+ * Notes on lifetime parameters:
+ * - 'static is for static values that live during the whole program,
+ *   doesn't need to be specified in <>
+ * - lifetime parameters don't make values live longer than they
+ *   already do, they only describe to the compiler the relationship
+ *   between values and their lifetimes
+ * - when there's a lifetime error, ask how to rearrange code, not how
+ *   to extend the borrow
+ * 
+ * Lifetime elision - default lifetimes that allow you to leave out lifetime parameters
+ * Lifetime elision rules:
+ * 1. In function parameters, each reference (&...) gets its own lifetime
+ *    Example:
+ *      fn ex(amt: i32, name: &str, user: &User) -> &str
+ *    becomes
+ *      fn ex<'a, 'b>(amt: i32, name: &'a str, user: &'b User) -> &str
+ *    Note: In this case, this would not compile without lifetime rules, since the
+ *          return type is not able to be automatically assigned a lifetime
+ * 2. If there's only one lifetime in the function parameters, returned reference
+ *    gets that lifetime
+ *    Example:
+ *       fn ex(color_name: &str, saturation: u8) -> &Color
+ *    becomes
+ *       fn ex<'a>(color_name: &'a str, saturation: u8) -> &'a Color
+ * 3. If there is a &self or &mut self parameter (i.e., function is a method),
+ *    returned reference gets that lifetime
+ *    Example:
+ *      struct Config {
+ *        version: usize,
+ *        settings: HashMap<String, String>,
+ *      }
+ *      impl Config {
+ *        fn get_value(&self, key: &str) -> &str {}
+ *      }
+ *    becomes
+ *      struct Config {
+ *        version: usize,
+ *        settings: HashMap<String, String>,
+ *      }
+ *      impl Config {
+ *        fn get_value<'a, 'b>(&'a self, key: &'b str) -> &'a str {}
+ *      }
+ */
