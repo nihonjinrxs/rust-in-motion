@@ -1,5 +1,7 @@
 extern crate rand;
 
+// "Lifetime of the return value of the simulate_game method is related to both
+//  the home and away parameters" (makes it related to the shorter-lived one)
 fn simulate_game<'a>(home: &'a str, away: &'a str) -> &'a str {
     if rand::random() {
         home
