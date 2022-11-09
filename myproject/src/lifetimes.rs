@@ -1,4 +1,5 @@
 pub mod references_in_hashmap;
+pub mod generics;
 
 pub fn run() {
     returning_ref_from_inner_scope_1();
@@ -7,7 +8,8 @@ pub fn run() {
     referencing_moved_value();
     // list_and_first_two();
 
-    references_in_hashmap::run();
+    // references_in_hashmap::run();
+    generics::run();
 }
 
 // fn returning_ref_from_inner_scope() {
